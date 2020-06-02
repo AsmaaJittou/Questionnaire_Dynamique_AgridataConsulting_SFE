@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'package:programe/screens/WidgetProject/newForm.dart';
+import 'package:programe/admin/WidgetProject/newForm.dart';
 import 'package:programe/services/auth.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:programe/admin/listForms/listForm.dart';
-import 'package:programe/screens/ListUsers/listUser.dart';
+import 'package:programe/admin/ListUsers/listUser.dart';
 class Home extends StatefulWidget  {
   
      @override

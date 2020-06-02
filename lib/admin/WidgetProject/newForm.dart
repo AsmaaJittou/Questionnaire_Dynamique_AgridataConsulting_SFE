@@ -1,6 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:programe/screens/WidgetProject/newCard.dart';
+import 'package:programe/admin/WidgetProject/newCard.dart';
 import 'package:programe/services/formService.dart';
 import 'package:programe/models/form.dart';
 import 'package:programe/models/card.dart';

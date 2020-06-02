@@ -5,7 +5,7 @@ import 'package:programe/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:programe/models/user.dart';
 
-import 'package:programe/screens/home/home.dart';
+import 'package:programe/admin/home/home.dart';
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

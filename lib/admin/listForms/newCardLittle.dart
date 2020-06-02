@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:programe/models/card.dart';
 import 'package:programe/services/formService.dart';
-import 'package:programe/screens/WidgetProject/newCard.dart';
+import 'package:programe/admin/WidgetProject/newCard.dart';
 class NewCardLittle extends StatefulWidget {
    final String idForm;
    NewCardLittle({Key key,this.idForm}) : super(key: key);
