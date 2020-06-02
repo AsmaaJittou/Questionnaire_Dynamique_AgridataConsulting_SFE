@@ -10,7 +10,6 @@ class ListUsers extends StatefulWidget {
 
 
 class _ListUsersState extends State<ListUsers> {
-  //  List<GlobalKey<FormState>> _formKey = [];
 
   
       Future getUsers() async{
@@ -20,22 +19,9 @@ class _ListUsersState extends State<ListUsers> {
              return query.documents;
   
    }
- 
-  /*   void initState() {
-    _formKey = new List<GlobalKey<FormState>>.generate(5,
-        (i) => new GlobalKey<FormState>(debugLabel: ' _formKey'));
-    super.initState();
-  }*/
      @override
      Widget build(BuildContext context) {
      return Scaffold(
-     backgroundColor: Colors.grey[400],
-      appBar: AppBar(
-        title: Text('Liste des Users'),
-     //   backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-    
-      ),
       body: Container(
         child: FutureBuilder(
           future: getUsers(),
@@ -50,9 +36,12 @@ class _ListUsersState extends State<ListUsers> {
           else {
            
        list=  ListView.builder(
+         
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
            itemCount: snapshot.data.length,
            itemBuilder: (_, index){
-           return CardUser(snapshot: snapshot,index: index,);
+           return CardUser(snapshot: snapshot,index: index,result: snapshot.data[index].data['access']);
            });
           }
           return list;

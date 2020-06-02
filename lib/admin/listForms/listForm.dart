@@ -21,15 +21,7 @@ class _ListFormsState extends State<ListForms> {
     @override
     Widget build(BuildContext context) {
     
-     return Scaffold(
-     backgroundColor: Colors.grey[400],
-      appBar: AppBar(
-        title: Text('Liste des Formulaires'),
-     //   backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-    
-      ),
-      body: Container(
+     return Container(
         child: FutureBuilder(
           future: getForms(),
           builder: ( _, snapshot){
@@ -42,15 +34,18 @@ class _ListFormsState extends State<ListForms> {
           }
           else {
            
-       list=  ListView.builder(
+       list= new SizedBox(
+             child:  ListView.builder(
            itemCount: snapshot.data.length,
+           
+        padding: new EdgeInsets.symmetric(vertical: 16.0),
            itemBuilder: (_, index){
            return CardForm(snapshot: snapshot,index: index,);
-           });
+           }));
           }
           return list;
           }),
-      ),
+      
 
    
       );

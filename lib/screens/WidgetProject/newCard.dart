@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:programe/screens/WidgetProject/newCheck.dart';
-import 'package:programe/screens/WidgetProject/newListDerolante.dart';
-import 'package:programe/screens/WidgetProject/newRadioButton.dart';
-import 'package:programe/shares/constant.dart';
 import 'package:programe/services/formService.dart';
 import 'package:programe/models/card.dart';
 
@@ -14,34 +10,51 @@ class NewCard extends StatefulWidget {
 }
 
 class NewCardState extends State<NewCard> {
-
+  final questionController= TextEditingController();
+   final inptTextController= TextEditingController();
+int i=1;
   @override
   
  static String question ='';
  static String typeInput ='';
  static String typeInput2=''; //textInput !!
   List<String> listContextInput=[];
- int i=0;
+ int nbr=0;
 
 
   final FormService formDAO = new FormService();
-    final _formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState>  _formKey = GlobalKey<FormState>();
   final CardModel cardModel = new CardModel(); 
  
   List<Key> listKeys=[];                                                          
   List<String> listValues=['Input Text'];
-  List<String> inputsType = ['Liste Déroulante', 'Radio Button', 'check', 'Input Text'];
+  List<String> inputsType = ['Liste Déroulante', 'Choix multiples', 'Cases à cocher', 'Paragraphe'];
 
   String inputTest;
  
-
-  final myController = TextEditingController();
 
   void resetForm() {
     setState(() {
       _formKey.currentState.reset();
     });
   }
+  bool validateform() {
+    bool test=false;
+    if (_formKey.currentState.validate()) {
+      test=true;
+     print(_formKey.currentState.validate());
+    }else{test=false;}
+    return test;
+  }
+ void validateAndSave() {
+    final FormState form = _formKey.currentState;
+    if (form.validate()) {
+      print('Form is valid');
+    } else {
+      print('Form is invalid');
+    }
+  }
+
  
    Widget build(BuildContext context) {
      
@@ -49,30 +62,16 @@ class NewCardState extends State<NewCard> {
       child:   new Card(
               elevation: 8.0,
               margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-              child:  Form( 
-                key: _formKey,
+             
                 child : new Container(
-                  decoration: BoxDecoration(color: Color.fromRGBO(245, 177, 42, .9)),
+                 decoration: BoxDecoration(color:Color.fromRGBO(253, 235, 208 , .9)),
+                child:  Form( 
+                key: _formKey,
                 child: new Column(
           children: <Widget>[
             Row(
             children: <Widget>[
-              Expanded(
-                  flex: 2,
-                  
-                  child: Container(
-                    // tag: 'hero',
-                    child:  SizedBox(
-                     
-                      child :RaisedButton(
-                       child:  Icon(Icons.cancel,size: 20,color: Color.fromRGBO(42, 45, 46, .9)),
-                       color: Color.fromRGBO(164, 203, 93, .9),
-                       onPressed: () async{
-                      
-                          },
-                    ),
-                    ),
-                  )),
+           
               Expanded(
                 flex: 10,
                 child: Padding(
@@ -88,16 +87,15 @@ class NewCardState extends State<NewCard> {
                     child: inputTextOnly(),
                    ) ,
                for(Key key in listKeys )
-            SizedBox(
-              child:newInputSelected(typeInput,key),
-            ) ,
+                newInputSelected(typeInput,key),
+       
+           
             
              buttonAdd(),
           ],
           
         ) ,
-              ),
-             
+                ),
               ),
              
             ),
@@ -106,28 +104,47 @@ class NewCardState extends State<NewCard> {
   }
 
    Widget textQuestion(){
-     return new TextFormField(
+     return new  Theme(
+          data: new ThemeData(
+            primaryColor: Color.fromRGBO(164, 203, 93, .9),
+            primaryColorDark: Color.fromRGBO(164, 203, 93, .9),
+            
+          ),
+          child: TextFormField(
+             
               // decoration: InputFormulaire,
+               controller: questionController,
               decoration: InputDecoration(
-                  icon: Icon(Icons.question_answer)
+                  
+                  icon: Icon(Icons.question_answer,color: Color.fromRGBO(42, 45, 46, .9),),
+                  hintText: "Question",
+                  hintStyle: TextStyle( color: Color.fromRGBO(42, 45, 46, .9)),
+              
+             
+                 
                 ),
                 style: TextStyle(
                 fontSize: 15.0,
-                color: Colors.orange[300]            
+                color: Color.fromRGBO(42, 45, 46, .9)    
               ),
-                 validator: (val) => val.isEmpty ? 'remplir ce champs!' : null,
+                
                 onChanged : (val)
                 {
              setState(() => cardModel.question=val);
+                }, validator: (value) {
+                if (value.isEmpty) {
+                  return 'remplir ce champs';
                 }
-              );
+                return null;
+              },
+              ),);
 
    }
 
   
    Widget listChoix(){
      return  new DropdownButton<String>(
-                hint: Text('choisir type input'),
+                hint: Text(typeInput),
                 items: inputsType.map((String value) {
                  return new DropdownMenuItem<String>( 
                    value: value, 
@@ -135,13 +152,16 @@ class NewCardState extends State<NewCard> {
                    ); 
                    }).toList(), 
                 onChanged:  (val) async{
-                    setState(() { typeInput=val; typeInput2=val; cardModel.inputType=val;
-                    cardModel.idCard=widget.key.toString();
+                    setState(() { typeInput=val;
+                     typeInput2=val;
+                      cardModel.inputType=val;
+                     cardModel.idCard=widget.key.toString();
+                   listContextInput.clear();
                     });
-                 //print(val);
                  testValue(val);
                  addInputToList(typeInput);
               }, 
+              
               );
    }
 
@@ -151,13 +171,13 @@ class NewCardState extends State<NewCard> {
       Widget choix = SizedBox();
 
      if(value==inputsType[0]){
-              choix= SizedBox( child: newListDeroul(key));
+              choix= SizedBox( child: newListDeroul(key),);
                 }else if(value==inputsType[1]){
-                choix= SizedBox( child: newRadioButton(key));
+                choix= SizedBox( child:  newRadioButton(key));
           
                 }else if(value==inputsType[2]){
                   setState(() { i++; });
-                 choix=  SizedBox( child: newCheck(key));
+                 choix=  SizedBox( child: newCheck(key),);
                  i++;
                 
                 } 
@@ -178,7 +198,7 @@ if(typeInput2==inputsType[3]){
    Widget buttonAdd() {
      return new RaisedButton(
                child:  Icon(Icons.add),
-               color: Color.fromRGBO(164, 203, 93, .9),
+               color:Color.fromRGBO(130, 224, 170  , .9),
                onPressed: () async{
                 counter();
                },
@@ -201,7 +221,7 @@ if(typeInput2==inputsType[3]){
     testValue(String value){
       if(listValues[listValues.length-1]!=value){
         listKeys.clear();
-        listContextInput.clear();
+       // listContextInput.clear();
       }
     }
 
@@ -214,16 +234,16 @@ if(typeInput2==inputsType[3]){
              Row(
             children: <Widget>[
               Expanded(
-                 flex: 0,
+                 flex: 1,
                  child: Container(
                    child:  SizedBox(
                   width: 100,
-                  child: newCheckbox(),
+                  child: Icon(Icons.check_box, color: Color.fromRGBO(42, 45, 46, .9),),
                   ),
                  ),
               ),
               Expanded(
-                
+                flex: 5,
                  child: Container(
                   child: SizedBox(
                     width: 100,
@@ -231,41 +251,63 @@ if(typeInput2==inputsType[3]){
                     ),
             
                  ),),
+                 Expanded(
+                   flex: 1,
+                   child: SizedBox(
+                     width: 50,
+                     height: 20,
+                      child:IconButton(
+                       icon:  Icon(Icons.cancel,size: 20,color: Color.fromRGBO(169, 50, 38 , .9)),
+                       
+                       key: new GlobalKey<FormState>(),
+                     onPressed: (){
+                setState(() {
+                  listKeys.remove(key);
+                });
+              }
+                    ),
+                   ),)
+               
               ],),
           
-            
+             
            
           ]
              );
    }
 
-   Widget newCheckbox(){
-   return new Checkbox(
-                   value: false,
-                    onChanged: (val) {
-                     
-                      },
-                  );
-   }
+  
    Widget inptText(Key key){
-     return new TextField(
+     return new Theme(
+          data: new ThemeData(
+            primaryColor: Color.fromRGBO(164, 203, 93, .9),
+            primaryColorDark: Color.fromRGBO(164, 203, 93, .9),
+            
+          ),
+          child: TextFormField(
+          // controller: inptTextController,
        key: key,
-      onChanged: (val) {
-      setState(() {
-        inputTest=val;
-      });
-      
-      },
-      
-     /* onSubmitted: (value){
+     onChanged: (value){
+       setState(() {
+         inputTest=value;
+        
+       });
+     },
+     validator: (value) {
+    if (value.isEmpty) {
+      return 'remplir ce champs';
+    }
+    return null;
+  },
+      onTap: () async{
         listContextInput.add(inputTest);
        // listContextInput.add(value);
-      },*/
+      },
        decoration: InputDecoration(
       contentPadding: new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0,),
       hintText: 'Option  ',//+ i.toString(),
        )
-     );
+     ),);
      
    }
   
@@ -273,26 +315,46 @@ if(typeInput2==inputsType[3]){
  ///******************RADIO BUTTON */
  Widget newRadioButton(Key key){
      return new  Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          
           children: <Widget>[
-             SizedBox(
-  width: 200,
-  child:  radioWidget(key),
-   ),
+             Row(
+            children: <Widget>[
+             Expanded(
+                   flex: 0,
+                    child: SizedBox(
+                width: 200,
+                child:  radioWidget(key),
+                ),
+                  ),
+                 
+                 Expanded(
+                   flex: 1,
+                   child: SizedBox(
+                     width: 50,
+                     height: 20,
+                      child: RaisedButton(
+                     color: Color.fromRGBO(42, 45, 46, .9),
+                     
+                     child:  Icon(Icons.delete,size: 20,color: Color.fromRGBO(245, 177, 42, .9),),
+                     onPressed: (){
+                setState(() {
+                  listKeys.remove(key);
+                });
+              }),
+                   ),)
         
           ]
+             ),]
              );
    }
 
    Widget radioWidget(Key key){
          return new  ListTile(
-                  title: TextField(
-                    key: key,
-                   onChanged: (val)async{
-                      addInputContext(val);
-                    },
-                  ),
+           
+                 title: inptText(key),
                   leading: Radio(
+                    activeColor: Color.fromRGBO(42, 45, 46, .9) ,
                     value: key,
                     groupValue: key,
                     onChanged: (val) {
@@ -303,31 +365,45 @@ if(typeInput2==inputsType[3]){
 
 /////********LIST DEROULANTE */
  Widget newListDeroul(Key key){
-     return new  Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  
+     return new Column(
+             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          
           children: <Widget>[
-                    SizedBox(
+             Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Icon(Icons.indeterminate_check_box, color: Color.fromRGBO(42, 45, 46, .9),)),
+
+                   Expanded(
+                     flex: 5,
+                     child:  SizedBox(
                     width: 100,
-                    child: inputListDeroulante(key),
+                    child: inptText(key),
+                    ),),  
+                   Expanded(
+                   flex: 1,
+                   child: SizedBox(
+                     width: 50,
+                     height: 20,
+                      child:IconButton(
+                       icon:  Icon(Icons.cancel,size: 20,color: Color.fromRGBO(169, 50, 38 , .9)),
+                       
+                       key: new GlobalKey<FormState>(),
+                     onPressed: (){
+                setState(() {
+                  listKeys.remove(key);
+                });
+              }
                     ),
+                   ),)
                             
            
-          ]
+          ]),]
              );
     
    }
-     Widget inputListDeroulante(Key key){
-     return new TextField(
-       key: key,
-       onChanged: (val)async{
-        addInputContext(val);
-      },
-       decoration: InputDecoration(
-      contentPadding: new EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0,)
-       )
-     );
-   }
+    
 
 }
 

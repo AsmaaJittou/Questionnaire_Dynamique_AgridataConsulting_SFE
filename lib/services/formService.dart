@@ -12,6 +12,7 @@ class FormService
   DocumentReference ref = await databaseReference.collection("Formulaire")
       .add({
         'title': formulaire.title,
+        'idForm': formulaire.idForm,
         'keyCards': formulaire.listCards,
       });
   print(ref.documentID);
@@ -22,6 +23,7 @@ void createCard(CardModel card) async {
   DocumentReference ref = await databaseReference.collection("card")
       .add({
         'idCard': card.idCard,
+        'idForm': card.idForm,
         'inputType': card.inputType,
         'listContextInput': card.listContextInput,
         'question': card.question,
