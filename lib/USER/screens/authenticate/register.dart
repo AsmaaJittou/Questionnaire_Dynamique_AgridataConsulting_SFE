@@ -318,12 +318,15 @@ var url = await taskSnapshot.ref.getDownloadURL();
 
       if (result.user != null){
   result.user.sendEmailVerification();
-       _showScaffold("GOOD"); 
+       _showScaffold("votre compte est créé avec succés"); 
 print('ok');
+
+Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => SignIn()));
    
 }else
 {
-  print('ono');
+  print('Ereur!!');
 }
 
 

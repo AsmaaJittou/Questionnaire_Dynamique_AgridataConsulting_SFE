@@ -1,14 +1,17 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:programe/USER/screens/authenticate/register.dart';
 import 'package:programe/USER/screens/forgotPassword.dart';
 import 'package:programe/USER/screens/home/home.dart';
+import 'package:programe/services/Login_phone.dart';
 import 'package:programe/services/auth.dart';
 import 'package:programe/services/signInmethod.dart';
 import 'package:programe/shares/constant.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:programe/admin/home/home.dart';
 
 class SignIn extends StatefulWidget {
    final Function toggleView;
@@ -97,16 +100,25 @@ actions: <Widget>[
 
       ),
 body: Container(
+
+  decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Colors.green, Colors.orange])
+              ),
+
   padding: EdgeInsets.symmetric(vertical:10.0,horizontal:50.0),
   child : Form( 
     key: _formKey,
     child: Column(
 children: <Widget>[
   SizedBox(
-          height: 150.0,
+          height: 120.0,
           child: Image.asset(
-            "images/logo.png",
+            "images//beOne.png",
             fit: BoxFit.contain,
+          width: 300,
           ),
         ),
  TextFormField(
@@ -117,7 +129,7 @@ children: <Widget>[
 setState(() => email = val);
    }
  ),
-SizedBox(height: 30.0),
+SizedBox(height: 20.0),
 TextFormField(
  decoration: passwordField,
    validator: (val) => val.length <6 ? 'Enter a password 6+ chars Long ' : null,
@@ -141,14 +153,41 @@ child: Text(
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
             onPressed: () async {
 if(_formKey.currentState.validate())
-{  pr.show();
-
-  final user = await _authe.signInWithEmailAndPassword(email: email.trim(), password: password);
+{  
+final user = await _authe.signInWithEmailAndPassword(email: email.trim(), password: password);
   
   FirebaseUser userID = await FirebaseAuth.instance.currentUser();
+
+ var result = await Firestore.instance 
+      .collection("user")
+      .where("ID_user", isEqualTo: userID.uid) 
+      .getDocuments();
+  result.documents.forEach((res) {
+   if(res.data['role']=="admin")
+   {
+ pr.show();
+ Future.delayed(Duration(seconds: 3)).then((value) {
+              pr.hide().whenComplete(() {
+                Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => Home()));
+              });
+ });
+   }else
+   {
+     pr.show();
+ Future.delayed(Duration(seconds: 3)).then((value) {
+              pr.hide().whenComplete(() {
+                Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => home()));
+              });
+ });
+   }
+  });
+
   
+
   //dynamic  result =await _auth.SignInWithEmailandPassword(email, password);
-_checkEmailVerification();
+
 }
 
 }
@@ -161,13 +200,25 @@ _checkEmailVerification();
 
  
 ),
-SizedBox(height:30.0),
+SizedBox(height:20.0),
 
 _signInButton(),
 
 showForgotPassword(),
 
 
+SizedBox(height:30.0),
+
+ new FloatingActionButton.extended(
+        onPressed: () {
+Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => Login_phone()));
+        },
+        tooltip: 'get code',
+        icon: Icon(Icons.send),
+        label: Text('Connexion par Telephone'),
+        backgroundColor: Colors.green[200],
+      ),
 ],
     ), 
   
@@ -181,6 +232,7 @@ showForgotPassword(),
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.black,
+      hoverColor: Colors.green[100],
       onPressed: (){
     signInWithGoogle().whenComplete(() {
         pr.show();
@@ -194,7 +246,7 @@ showForgotPassword(),
   },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       highlightElevation: 0,
-      borderSide: BorderSide(color: Colors.green),
+      borderSide: BorderSide(color: Colors.green[100]),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Row(
@@ -205,10 +257,10 @@ showForgotPassword(),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
-                'Sign in with Google',
+                'Continuer avec Google ',
                 style: TextStyle(
                   fontSize: 17,
-                  color: Colors.green,
+                  color: Colors.white,
                 ),
               ),
             )
@@ -222,7 +274,7 @@ Widget showForgotPassword()
 {
   
   return FlatButton(
-  child: Text("forgot Password?",
+  child: Text("Mot de passe oublié ?",
   style: TextStyle(
     color:Colors.black26,
     fontFamily: 'Montserrat',
@@ -240,6 +292,7 @@ Widget showForgotPassword()
 	    _isEmailVerified = await auth.isEmailVerified();
 	    if (!_isEmailVerified) {
 	      _showVerifyEmailDialog();
+
 	    }else 
       {
          Navigator.of(context).push(CupertinoPageRoute(
@@ -278,6 +331,7 @@ Widget showForgotPassword()
 	      },
 	    );
 	  }
+
 
     
   

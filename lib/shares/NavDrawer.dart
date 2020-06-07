@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:programe/USER/screens/home/Settings.dart';
+import 'package:programe/USER/screens/home/onboarding.dart';
 import 'package:programe/USER/screens/home/profile.dart';
 import 'package:programe/services/auth.dart';
 import 'package:programe/services/sign_in.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:programe/USER/screens/home/home.dart';
 
 
 class NavDrawer extends StatelessWidget {
@@ -29,7 +32,7 @@ String _email() {
     if (currentUser != null) {
       return currentUser.email;
     } else {
-      return "no current user";
+      return "";
     }
 }
     pr = new ProgressDialog(context);
@@ -70,11 +73,12 @@ pr.style(
   ),
   
   currentAccountPicture: CircleAvatar(
-    
+
+
     backgroundColor:
             Colors.white,
             foregroundColor: Colors.green,
-    child: Image.asset('images/logo.png',
+    child: Image.asset('images/beOne.png',
     width: 100,
     height: 100,
     
@@ -84,8 +88,16 @@ pr.style(
           SizedBox(height:20.0),
           ListTile(
             leading: Icon(Icons.input),
-            title: Text('Welcome'),
-            onTap: () => {},
+            title: Text('Bienvenue'),
+            onTap: () => {
+Future.delayed(Duration(seconds: 3)).then((value) {
+              pr.hide().whenComplete(() {
+                Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) =>  onboarding()));
+              });
+ }),
+
+            },
           ),
           ListTile(
             leading: Icon(Icons.verified_user),
@@ -102,22 +114,29 @@ pr.style(
           ),
           ListTile(
             leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () => {Navigator.of(context).pop()},
+            title: Text('Services'),
+            onTap: () =>  Future.delayed(Duration(seconds: 3)).then((value) {
+              pr.hide().whenComplete(() {
+                Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => settings()));
+              });
+ }),
+    
           ),
-          ListTile(
-            leading: Icon(Icons.notification_important),
-            title: Text('notifications'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
+          
           ListTile(
             leading: Icon(Icons.forum),
             title: Text('Forms'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () =>  Future.delayed(Duration(seconds: 3)).then((value) {
+              pr.hide().whenComplete(() {
+                Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => home()));
+              });
+ }),
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
+            title: Text('Déconnexion'),
             onTap: () => {
                Future.delayed(Duration(seconds: 3)).then((value) {
               pr.hide().whenComplete(() {

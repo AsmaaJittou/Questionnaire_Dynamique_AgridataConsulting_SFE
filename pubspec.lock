@@ -36,6 +36,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.4.0"
+  built_collection:
+    dependency: transitive
+    description:
+      name: built_collection
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.3.2"
+  built_value:
+    dependency: transitive
+    description:
+      name: built_value
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.1.0"
   card_settings:
     dependency: "direct main"
     description:
@@ -218,6 +232,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.0"
+  fixnum:
+    dependency: transitive
+    description:
+      name: fixnum
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.10.11"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -286,6 +307,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.8"
+  flutter_share:
+    dependency: "direct main"
+    description:
+      name: flutter_share
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2+1"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -380,6 +408,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+  international_phone_input:
+    dependency: "direct main"
+    description:
+      name: international_phone_input
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   intl:
     dependency: transitive
     description:
@@ -401,6 +436,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.1+1"
+  libphonenumber:
+    dependency: transitive
+    description:
+      name: libphonenumber
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   matcher:
     dependency: transitive
     description:

@@ -7,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:programe/USER/screens/home/EditProfile.dart';
 import 'package:programe/services/auth.dart';
 
+import 'home.dart';
+
 class profile extends StatefulWidget {
     profile({Key key}) : super(key: key);
  
@@ -29,7 +31,7 @@ class profile extends StatefulWidget {
 class _profileState extends State<profile> {
 
   IconData verificationOK=Icons.verified_user;
-  IconData verificationNo=FontAwesomeIcons.home;
+  IconData verificationNo=Icons.error;
   Color colorRed= Colors.red;
    Color colorGreen= Colors.green;
   AuthService authService = AuthService();
@@ -55,7 +57,7 @@ return SafeArea(
    Align(
   
    child:Text(
-    'Personal Details',
+    'Détails personnels',
   style:TextStyle(
    color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -128,6 +130,31 @@ return SafeArea(
                  
                   
            ),
+
+            Card (
+                       color : Colors.white,
+                       margin: EdgeInsets.symmetric( vertical: 10.0 , horizontal: 25.0),
+                  child: ListTile(
+   leading: Icon(Icons.phone,
+                      color : Colors.orange,
+  
+                    ),
+                    title:
+                    Text(
+ document.data['Telephone'],
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.0,
+                      ),
+  
+                    ),
+                    
+                      ),
+                    
+                 
+                  
+           ),
   Card (
                        color : Colors.white,
                        margin: EdgeInsets.symmetric( vertical: 10.0 , horizontal: 25.0),
@@ -180,13 +207,13 @@ return SafeArea(
                        child: ListTile(
  
                          leading: Icon  (
-                           verificationOK,
-                           color : colorGreen,
+                          document.data['access']==true?verificationOK:verificationNo,
+                           color : document.data['access']==true?colorGreen:colorRed,
   
                          ),
                         title :
                         Text(
-                          'Account verification ',
+                          'verification Compte ',
                           style: TextStyle(
                             color: Colors.black,
                            
@@ -194,9 +221,9 @@ return SafeArea(
                           ),
   
                         ),
-  subtitle:  Text('You account is verficated by Administration , You can now answer forms ')
+  subtitle: document.data['access']==true?Text('Votre compte est vérifié par l\'administration, vous pouvez désormais répondre aux formulaires')
+                       :Text('vous ne pouvez pas répondre aux formulaires, veuillez attendre la confirmation de l\'administration'),
                        ),
-  
                  ),
   
                  SizedBox(height:50.0),
@@ -209,12 +236,13 @@ return SafeArea(
    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
   color:  Colors.orange,
   onPressed: (){
-  
+   Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => home()));
   },
   elevation: 4.0,
   splashColor: Colors.black,
   child: Text(
-    'Cancel',
+    'Retour',
     style: TextStyle(
   color:Colors.white,
   fontSize: 16.0
@@ -237,7 +265,7 @@ return SafeArea(
   elevation: 4.0,
   splashColor: Colors.black,
   child: Text(
-    'Edit',
+    'Modifier le profil',
     style: TextStyle(
   color:Colors.white,
   fontSize: 16.0

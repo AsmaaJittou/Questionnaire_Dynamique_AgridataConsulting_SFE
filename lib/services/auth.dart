@@ -25,6 +25,8 @@ User _userFromFireBaseUser(FirebaseUser user)
 
 
 
+
+
 Stream<User> get user {
 
   return _auth.onAuthStateChanged
@@ -118,10 +120,10 @@ Future<void> sendPasswordResetMail(String email) async{
 	    user.sendEmailVerification();
 	  }
 
-    void updateDateUser(String uid , String nom , String prenom , String cine , String email,String image)
+    void updateDateUser(String uid , String nom , String prenom , String cine , String email,String image,String phone)
    async {
         await Firestore.instance.collection('user').document(uid)
-        .updateData({'nom': nom ,'prenom':prenom,'cin':cine,'email':email ,'image':image});
+        .updateData({'nom': nom ,'prenom':prenom,'cin':cine,'email':email ,'image':image ,'Telephone':phone});
 
     }
 

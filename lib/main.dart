@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:programe/USER/screens/home/home.dart';
 import 'package:programe/USER/screens/home/onboarding.dart';
 import 'package:programe/USER/screens/wrapper.dart';
 import 'package:programe/services/auth.dart';
+import 'package:programe/services/sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:programe/models/user.dart';
 
@@ -14,11 +16,8 @@ class MyApp extends StatelessWidget {
     return StreamProvider<User>.value(
       value: AuthService().user,
           child: MaterialApp(
-        home:Home(),
+        home:onboarding(),
       ), 
     );
   }
 }
-
-
- 

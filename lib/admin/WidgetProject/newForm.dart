@@ -127,7 +127,7 @@ int valInt=0;
                decoration: inputDescription,
                   onChanged: (val)
                     {
-                   // setState(() => formTest.title = val);
+                  setState(() => formTest.description = val);
                     },
                         ), ],
           ),
@@ -135,7 +135,6 @@ int valInt=0;
     ),
   ],
 ),
-               Text('Title Form:',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),), 
             
             for(GlobalKey<NewCardState> itemKey in listKeysCard) 
              Column(
@@ -267,9 +266,11 @@ int valInt=0;
                      setState(() {
                      listKeysToString.clear();
                      listKeysCard.clear();
-                     });
                      keyForm.currentState.reset();
                      _formKey.currentState.reset();
+                     });
+                     
+                    
                     }
                   
                   

@@ -35,12 +35,12 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController nameController = TextEditingController(text:document.data['nom']);
   TextEditingController prenomController = TextEditingController(text:document.data['prenom']);
   TextEditingController cinController = TextEditingController(text:document.data['cin']);
-
+ TextEditingController phoneController = TextEditingController(text:document.data['Telephone']);
       String email =document.data['email'];
       String nom =document.data['nom'];
       String prenom=document.data['prenom'];
       String cin=document.data['cin'];
-
+      String phone =document.data['Telephone'];
      
 
      final _formeKey = GlobalKey<FormState>();
@@ -123,7 +123,26 @@ new ListTile(
 
         
       ),
-    
+   SizedBox(height:20.0),
+   new ListTile(
+        leading: const Icon(
+          Icons.phone,
+         
+        ),
+        title: new TextFormField(
+          decoration: new InputDecoration(
+            hintText: document.data['Telephone'],
+            
+          ),
+          controller: phoneController,
+        
+  
+        ),
+        subtitle: const Text('Telephone'),
+
+        
+      ),
+     
       SizedBox(height:20.0),
       new ListTile(
         leading: const Icon(FontAwesomeIcons.idCard,
@@ -177,12 +196,12 @@ StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(filen
 StorageUploadTask uploadTasck = firebaseStorageRef.putFile(_image);
 StorageTaskSnapshot taskSnapshot = await uploadTasck.onComplete;
 var url = await taskSnapshot.ref.getDownloadURL();
-authService.updateDateUser(document.data['ID_user'],nameController.text, prenomController.text, cinController.text, emailController.text,url);
+authService.updateDateUser(document.data['ID_user'],nameController.text, prenomController.text, cinController.text, emailController.text,url,phoneController.text);
    pr.show();
          Future.delayed(Duration(seconds: 3)).then((value) {
               pr.hide().whenComplete(() {
                 
-                  _showScaffold("Your Profile Has updated") ;
+                  _showScaffold("Votre profil a été mis à jour") ;
               });
  });
  

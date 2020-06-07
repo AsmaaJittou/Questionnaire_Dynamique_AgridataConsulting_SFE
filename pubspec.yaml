@@ -50,7 +50,8 @@ dependencies:
   firebase_storage_image: ^0.4.0
   drawer_master_detail: ^0.1.4
   email_validator: ^1.0.0
-  
+  international_phone_input: ^1.0.4
+  flutter_share: ^1.0.2+1
 
 dev_dependencies:
   flutter_test:
@@ -84,10 +85,14 @@ flutter:
       - asset: fonts/Poppins-SemiBold.ttf
         weight: 600
       - asset: fonts/Poppins-Regular.ttf
-        weight: 400
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
+        weight: 400 
+    - family: MetalMania
+      fonts:
+        - asset: fonts/MetalMania-Regular.ttf
+    - family: RobotoMono
+      fonts:
+        - asset: fonts/RobotoMono-Regular.ttf
+        - asset: fonts/RobotoMono-Bold.ttf
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:

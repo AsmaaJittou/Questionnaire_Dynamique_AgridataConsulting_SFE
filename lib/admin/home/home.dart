@@ -11,10 +11,6 @@ class Home extends StatefulWidget  {
      _HomeState createState() => new _HomeState();
 }
 
-const List<String> tabNames = const<String>[
-     'Questions', 'Réponses'
-];
-
 class _HomeState extends State<Home> {
   int _screen = 0;
   @override
@@ -33,7 +29,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
       elevation: 0.1,
       backgroundColor: Color.fromRGBO(253, 235, 208 , .9),
-      title: Text('Espace Administrateur',style: TextStyle(color: Color.fromRGBO(25, 111, 61 , .9)),),
+      title: Text('Espace Administrateur',style: TextStyle(color: Color.fromRGBO(25, 111, 61 , .9),fontFamily: 'RobotoMono')),
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.list,color: Color.fromRGBO(25, 111, 61 , .9),),
@@ -42,7 +38,6 @@ class _HomeState extends State<Home> {
       ],
     ),
 
-     
    
        body: new DefaultTabController(
          length: tabNames.length,
@@ -60,8 +55,9 @@ class _HomeState extends State<Home> {
                   case 2: return new  Column(
                     children: <Widget>[
                       Expanded(
+                        flex: 5,
                         child:
-                       SizedBox(width: 370.0,
+                       SizedBox(width: 500.0,
                       height: 100.0,
                       child: ListForms(),)),
                       Expanded(child: 
@@ -98,11 +94,11 @@ class _HomeState extends State<Home> {
         // sets the background color of the `BottomNavigationBar`
         canvasColor:   Color.fromRGBO(25, 111, 61 , .9),
         // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-        primaryColor: Colors.white24,
+        primaryColor: Colors.white,
         textTheme: Theme
             .of(context)
             .textTheme
-            .copyWith(caption: new TextStyle(color: Colors.white))), // sets the inactive color of the `BottomNavigationBar`
+            .copyWith(caption: new TextStyle(color: Colors.white24))), // sets the inactive color of the `BottomNavigationBar`
    child : new Column(
              mainAxisSize: MainAxisSize.min,
              crossAxisAlignment: CrossAxisAlignment.stretch,
