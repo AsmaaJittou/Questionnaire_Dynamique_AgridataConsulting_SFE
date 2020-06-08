@@ -62,8 +62,8 @@ pr.style(
          UserAccountsDrawerHeader(
             decoration: BoxDecoration(
         color: Colors.green[200],
-    ),
-           arrowColor: Colors.green[100],
+    ), 
+           arrowColor: Colors.green[100], 
   accountEmail: Text(_email(),
   
   style: TextStyle(

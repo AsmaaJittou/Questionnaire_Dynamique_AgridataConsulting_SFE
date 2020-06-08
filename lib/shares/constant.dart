@@ -17,8 +17,12 @@ final emailField =
              
               contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0,15.0),
               hintText: "Email",
+              enabledBorder: const OutlineInputBorder(
+      borderSide: const BorderSide(color: Color.fromRGBO(132, 199, 115, .9), width: 2.0),
+    ),
               border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)));
+                  OutlineInputBorder(),
+             );
     
 final Nom =
            InputDecoration(
@@ -32,8 +36,12 @@ final Nom =
          final passwordField = InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(10.0, 15.0, 20.0, 15.0),
               hintText: "mot de passe",
+              enabledBorder: const OutlineInputBorder(
+      borderSide: const BorderSide(color: Color.fromRGBO(132, 199, 115, .9), width: 2.0),
+    ),
               border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)));
+                  OutlineInputBorder(),
+                 );
 
 final ConfirmpasswordField = InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(10.0, 15.0, 20.0, 15.0),
@@ -95,7 +103,7 @@ final CIN =
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
+            Image(image: AssetImage("assets/google_logo.png"), height: 20.0),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(

@@ -1,11 +1,12 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:programe/admin/WidgetProject/newCard.dart';
+import 'package:programe/admin/listForms/listForm.dart';
 import 'package:programe/services/formService.dart';
 import 'package:programe/models/form.dart';
 import 'package:programe/models/card.dart';
 import 'package:programe/shares/constant.dart';
-import 'package:path/path.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 //var myCard= NewCard();
@@ -249,6 +250,13 @@ int valInt=0;
                       itemKey.currentState.cardModel.listContextInput=testList;
                       itemKey.currentState.cardModel.listContextInput.removeWhere((value) => value == null);
                       itemKey.currentState.cardModel.idForm= formTest.idForm;
+                      if(itemKey.currentState.cardModel.inputType=='Paragraphe'){
+                        testList.add('');
+                         itemKey.currentState.cardModel.listContextInput=testList;
+                      }
+                      if( itemKey.currentState.cardModel.inputType=='' || itemKey.currentState.cardModel.inputType==null){
+                        itemKey.currentState.cardModel.inputType='Paragraphe';
+                      }
                       formDAO.createCard(itemKey.currentState.cardModel); 
                       i=true;
                         }
@@ -266,8 +274,12 @@ int valInt=0;
                      setState(() {
                      listKeysToString.clear();
                      listKeysCard.clear();
-                     keyForm.currentState.reset();
+                   //  keyForm.currentState.reset();
                      _formKey.currentState.reset();
+                    titleController.clear();
+                    descriptionController.clear();
+                      
+   
                      });
                      
                     

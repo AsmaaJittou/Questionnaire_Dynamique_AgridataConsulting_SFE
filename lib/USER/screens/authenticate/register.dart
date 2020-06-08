@@ -48,6 +48,7 @@ final FirebaseAuth  _authentification = FirebaseAuth.instance;
       String password ='';
       String comfirmpassword ='';
       String error ='';
+      String phoneNo;
       bool loading =false;
 
       //---------------------------------------
@@ -71,7 +72,7 @@ void getCurrentUser() async{
   TextEditingController prenomController = TextEditingController();
   TextEditingController cinController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
- 
+   TextEditingController phoneController = TextEditingController();
 //Widget Alert styling 
 
  AnimationType animationType;
@@ -104,6 +105,7 @@ final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   
    
       return Scaffold(
+       
  key: _scaffoldKey,
       resizeToAvoidBottomPadding: false ,
       backgroundColor: Colors.green[255],
@@ -133,6 +135,7 @@ actions: <Widget>[
 
       ),
 body: Container(
+  
   padding: EdgeInsets.symmetric(vertical:20.0,horizontal:50.0),
   child : Form(
     key: _formeKey,
@@ -177,6 +180,29 @@ getImage();
 
 ),
  SizedBox(height: 10.0),
+
+TextFormField(
+  keyboardType: TextInputType.phone,
+  controller:phoneController ,
+ decoration: InputDecoration(
+             
+              contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0,15.0),
+              hintText: "+212",
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),
+                  borderSide:  BorderSide(color: Colors.orange, width: 2.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(borderSide:  BorderSide(color: Colors.orange, width: 2.0),
+                  borderRadius: BorderRadius.circular(32.0)) ,
+                focusColor: Colors.green,
+                fillColor: Colors.green,
+                  ),
+  
+onChanged: (val)
+{
+setState(() => phoneNo =val);
+},
+),
 
 //nom
 TextFormField(
@@ -308,7 +334,8 @@ var url = await taskSnapshot.ref.getDownloadURL();
         'ID_user' : result.user.uid,
         'image': url,
         'access':access,
-    
+         'role':'user',
+         'Telephone':phoneController,
         
       }).catchError((err) {
       
@@ -318,15 +345,12 @@ var url = await taskSnapshot.ref.getDownloadURL();
 
       if (result.user != null){
   result.user.sendEmailVerification();
-       _showScaffold("votre compte est créé avec succés"); 
+       _showScaffold("GOOD"); 
 print('ok');
-
-Navigator.of(context).push(CupertinoPageRoute(
-                    builder: (BuildContext context) => SignIn()));
    
 }else
 {
-  print('Ereur!!');
+  print('ono');
 }
 
 

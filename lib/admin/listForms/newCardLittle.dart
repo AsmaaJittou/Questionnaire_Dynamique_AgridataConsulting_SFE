@@ -143,6 +143,13 @@ final List<GlobalKey<NewCardState>> listKeysCard=[];
                        itemKey.currentState.cardModel.listContextInput.removeWhere((value) => value == null);
                        
                       itemKey.currentState.cardModel.idForm= widget.idForm;
+                        if(itemKey.currentState.cardModel.inputType=='Paragraphe'){
+                        testList.add('');
+                         itemKey.currentState.cardModel.listContextInput=testList;
+                      }
+                      if( itemKey.currentState.cardModel.inputType=='' || itemKey.currentState.cardModel.inputType==null){
+                        itemKey.currentState.cardModel.inputType='Paragraphe';
+                      }
                       formDAO.createCard(itemKey.currentState.cardModel); 
                      i=true;
                      }else{

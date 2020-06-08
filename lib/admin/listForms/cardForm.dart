@@ -23,9 +23,7 @@ DatabaseService serviceData = new DatabaseService();
     return Firestore.instance.collection('card').document(id).delete();
   }
        Future getCards() async{
-         print(widget.snapshot.data[widget.index].data['idForm']);
-       QuerySnapshot query = await  Firestore.instance.collection('card').where('idForm', isEqualTo: widget.snapshot.data[widget.index].data['idForm']).getDocuments();
-      print('deleted');
+      QuerySnapshot query = await  Firestore.instance.collection('card').where('idForm', isEqualTo: widget.snapshot.data[widget.index].data['idForm']).getDocuments();
              return query.documents;
          
    } 
@@ -79,27 +77,18 @@ DatabaseService serviceData = new DatabaseService();
               ),
                new FlatButton(
                 child: new Text("Oui"),
-                onPressed: () {
-                  FutureBuilder(
-                         future: getCards(),
-             builder: ( _, snapshot){
-           Widget list=Column(children: <Widget>[],);
-           
-       list= ListView.builder(
-                          physics: BouncingScrollPhysics(),
-                          cacheExtent: 1000,
-                          addAutomaticKeepAlives: true,
-                          reverse: false,
-                          scrollDirection: Axis.vertical,
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (_, index) {
-                            print('greate');
-                removeCardFromDB(snapshot.data[index].documentID);
-           },
-           );
-          return list;
-          }
-                          );
+                onPressed: () async {
+                  var cards = await Firestore.instance
+                .collection('card')
+                .where('idForm', isEqualTo: widget.snapshot.data[widget.index].data['idForm'])
+                .getDocuments();
+
+              var batch = Firestore.instance.batch();
+              cards.documents.forEach((doc) {
+                print(doc.documentID);
+                batch.delete(doc.reference); });
+             
+              await batch.commit();
                     removeFormFromDB(widget.snapshot.data[widget.index].documentID);
                   Navigator.of(context).pop();
                 },

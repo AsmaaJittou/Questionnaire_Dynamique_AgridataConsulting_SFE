@@ -83,18 +83,18 @@ pr.style(
 
       appBar: AppBar(
 
-backgroundColor: Colors.green,
+backgroundColor: Colors.white,
 elevation: 0.0,
 
 
 actions: <Widget>[
  FlatButton.icon(
-   icon: Icon(Icons.person),
+   icon: Icon(Icons.person,color:Color.fromRGBO(255, 167, 32, .9)),
    onPressed: () {
       Navigator.of(context).push(CupertinoPageRoute(
                     builder: (BuildContext context) => Register()));
    }, 
-   label: Text('Inscrire'),
+   label: Text('Inscription',style: TextStyle(color:Color.fromRGBO(255, 167, 32, .9)),),
    ) 
 ],
 
@@ -105,7 +105,7 @@ body: Container(
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.green, Colors.orange])
+              colors: [Colors.white, Colors.white])
               ),
 
   padding: EdgeInsets.symmetric(vertical:10.0,horizontal:50.0),
@@ -129,7 +129,7 @@ children: <Widget>[
 setState(() => email = val);
    }
  ),
-SizedBox(height: 20.0),
+SizedBox(height: 5.0),
 TextFormField(
  decoration: passwordField,
    validator: (val) => val.length <6 ? 'Enter a password 6+ chars Long ' : null,
@@ -139,13 +139,14 @@ onChanged: (val)
 setState(() => password = val);
 },
 ),
-SizedBox(height:30.0),
+showForgotPassword(),
+SizedBox(height:10.0),
 Material(
- borderRadius: BorderRadius.circular(32.0),
-  color:  Colors.orange,
+ borderRadius: BorderRadius.vertical(),
+  color:  Color.fromRGBO(255, 167, 32, .9),
   child : MaterialButton(
 child: Text(
-    'Connecter',
+    'Se connecter',
     
      style: TextStyle(color : Colors.white , fontFamily: 'Montserrat' ,fontWeight: FontWeight.bold) ,
   ),
@@ -200,25 +201,57 @@ final user = await _authe.signInWithEmailAndPassword(email: email.trim(), passwo
 
  
 ),
-SizedBox(height:20.0),
+ FlatButton(
+  child: Text("___________ Ou ___________",
+  style: TextStyle(
+    color:Colors.black26,
+    fontFamily: 'Montserrat',
+  ),
+  ),
+  onPressed: ()
+  {
+  },
+  ),
+SizedBox(height:10.0),
 
 _signInButton(),
 
-showForgotPassword(),
 
+ 
 
-SizedBox(height:30.0),
+SizedBox(height:5.0),
 
- new FloatingActionButton.extended(
-        onPressed: () {
+ new OutlineButton(
+      splashColor: Colors.black,
+      hoverColor: Colors.green[100],
+       onPressed: () {
 Navigator.of(context).push(CupertinoPageRoute(
                     builder: (BuildContext context) => Login_phone()));
         },
-        tooltip: 'get code',
-        icon: Icon(Icons.send),
-        label: Text('Connexion par Telephone'),
-        backgroundColor: Colors.green[200],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical()),
+      highlightElevation: 0,
+      borderSide: BorderSide(color: Colors.green[100]),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+          Icon(Icons.phone_android,color:Color.fromRGBO(255, 167, 32,.9),size: 25,),
+            Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Text(
+                'Connexion par numéro  ',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color.fromRGBO(131, 185, 117, .9),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
+    ),
 ],
     ), 
   
@@ -244,7 +277,7 @@ Navigator.of(context).push(CupertinoPageRoute(
  });
     });
   },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical()),
       highlightElevation: 0,
       borderSide: BorderSide(color: Colors.green[100]),
       child: Padding(
@@ -253,14 +286,14 @@ Navigator.of(context).push(CupertinoPageRoute(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-          Image(image: AssetImage("images/google_logo.png"), height: 30.0),
+          Image(image: AssetImage("images/google_logo.png"), height: 25.0),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
                 'Continuer avec Google ',
                 style: TextStyle(
-                  fontSize: 17,
-                  color: Colors.white,
+                  fontSize: 16,
+                  color: Color.fromRGBO(131, 185, 117, .9),
                 ),
               ),
             )

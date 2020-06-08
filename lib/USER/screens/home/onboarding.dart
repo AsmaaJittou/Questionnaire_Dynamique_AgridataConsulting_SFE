@@ -104,7 +104,6 @@ pr.update(
     return Scaffold(
       body: IntroductionScreen(
        globalBackgroundColor: Colors.green[100],
-       
        pages: getPages(),
 next: const Icon(Icons.arrow_forward),
      
