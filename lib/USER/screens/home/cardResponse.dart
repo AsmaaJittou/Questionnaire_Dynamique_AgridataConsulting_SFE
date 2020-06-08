@@ -55,10 +55,12 @@ class CardResponseState extends State<CardResponse> {
           inputListDeroulante=widget.cardInside.listContextInput[0];
           cardOther =widget.cardInside;
      return new SingleChildScrollView(
+        
       child: Card(
                            child:Form(
                              key: _formKey,
                              child: Container(
+                              color : Colors.green[100],
 
                                child: 
                                SizedBox(
@@ -67,13 +69,20 @@ class CardResponseState extends State<CardResponse> {
                                  child: Column(
                      
                     children: <Widget>[
+
+                   SizedBox(height: 50.0),
                           Expanded(
                           flex:0,
                           child: SizedBox(
                                   width: 400.0,
                                       height: 50.0,
                                   child: Container(
-                                    child: Text(widget.cardInside.question,style: TextStyle(fontFamily: 'Montserrat'),),
+
+                                    child: Text(widget.cardInside.question,style: TextStyle(fontFamily: 'Montserrat',fontWeight: FontWeight.bold,),
+                                    
+                                    
+                                    ),
+                                    
                                   ),
                           ),
                           ),
@@ -90,7 +99,10 @@ class CardResponseState extends State<CardResponse> {
                                ),
                              ),
                            ),
-                            ) ,);
+                            ) ,
+
+                              
+                            );
    }
 Widget testTypeInput(CardModel cardInside,Key key){
   Widget choix = SizedBox();

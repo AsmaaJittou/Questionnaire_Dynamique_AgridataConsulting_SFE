@@ -122,7 +122,7 @@ children: <Widget>[
           ),
         ),
  TextFormField(
-   decoration: emailField,
+   decoration: emailField1,
     validator: (val) => val.isEmpty ? 'Enter an Email' : null,
    onChanged : (val)
    {
@@ -131,7 +131,7 @@ setState(() => email = val);
  ),
 SizedBox(height: 5.0),
 TextFormField(
- decoration: passwordField,
+ decoration: passwordField1,
    validator: (val) => val.length <6 ? 'Enter a password 6+ chars Long ' : null,
   obscureText: true,
 onChanged: (val)
@@ -166,22 +166,22 @@ final user = await _authe.signInWithEmailAndPassword(email: email.trim(), passwo
   result.documents.forEach((res) {
    if(res.data['role']=="admin")
    {
- pr.show();
- Future.delayed(Duration(seconds: 3)).then((value) {
-              pr.hide().whenComplete(() {
+
                 Navigator.of(context).push(CupertinoPageRoute(
                     builder: (BuildContext context) => Home()));
-              });
- });
+            
    }else
    {
-     pr.show();
+      _checkEmailVerification();
+            pr.show();
  Future.delayed(Duration(seconds: 3)).then((value) {
               pr.hide().whenComplete(() {
                 Navigator.of(context).push(CupertinoPageRoute(
                     builder: (BuildContext context) => home()));
               });
  });
+     
+
    }
   });
 
@@ -341,11 +341,11 @@ Widget showForgotPassword()
 	      builder: (BuildContext context) {
 	        // return object of type Dialog
 	        return AlertDialog(
-	          title: new Text("Verify your account"),
-	          content: new Text("Please verify account in the link sent to email"),
+	          title: new Text("verifier votre compte "),
+	          content: new Text("veuillez vérifier votre compte, en visitant votre boite mail"),
 	          actions: <Widget>[
 	            new FlatButton(
-	              child: new Text("Resent link"),
+	              child: new Text("Renvoyer le lien"),
 	              onPressed: () {
                 auth.sendEmailVerification();
 	                Navigator.of(context).pop();
@@ -353,7 +353,7 @@ Widget showForgotPassword()
 	              },
 	            ),
 	            new FlatButton(
-	              child: new Text("Dismiss"),
+	              child: new Text("ok"),
 	              onPressed: () {
 	                Navigator.of(context).push(CupertinoPageRoute(
                     builder: (BuildContext context) => SignIn()));

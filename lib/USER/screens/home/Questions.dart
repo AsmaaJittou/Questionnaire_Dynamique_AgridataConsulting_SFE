@@ -78,7 +78,9 @@ List<GlobalKey<CardResponseState>> listQuestionKeys=[];
                         itemBuilder: (_,index) {
                           questionKey= new GlobalKey<CardResponseState> ();
                           listQuestionKeys.add(questionKey);
-                           CardModel cardInside=new CardModel(idCard: snapshot.data[index].documentID,idForm:  widget.idForm,question: snapshot.data[index].data['question'],listContextInput: List<String>.from(snapshot.data[index].data['listContextInput']),listResponses:  List<String>.from(snapshot.data[index].data['listResponses']), inputType: snapshot.data[index].data['inputType'] );
+                           CardModel cardInside=new CardModel(idCard: snapshot.data[index].documentID,idForm:  widget.idForm,question: snapshot.data[index].data['question'],listContextInput: List<String>.from(snapshot.data[index].data['listContextInput']),listResponses: 
+                            List<String>.from(snapshot.data[index].data['listResponses']), inputType: snapshot.data[index].data['inputType'] );
+         
                               
                          return new CardResponse(cardInside: cardInside,key: questionKey);
                         },

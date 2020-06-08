@@ -13,7 +13,8 @@ class FormService
       .add({
         'title': formulaire.title,
         'idForm': formulaire.idForm,
-        'Description': formulaire.description
+        'Description': formulaire.description,
+        'image': formulaire.url 
 
       });
   print(ref.documentID);

@@ -1,5 +1,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:programe/admin/WidgetProject/newCard.dart';
 import 'package:programe/admin/listForms/listForm.dart';
 import 'package:programe/services/formService.dart';
@@ -9,6 +10,7 @@ import 'package:programe/shares/constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:path/path.dart';
 //var myCard= NewCard();
 final keyCard = new GlobalKey<NewCardState>();
 final List<GlobalKey<NewCardState>> listKeysCard=[];
@@ -79,29 +81,45 @@ int valInt=0;
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(children: <Widget>[
-                 Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6.0),
-                child:CircleAvatar(radius: 100,
-                backgroundColor: Color.fromRGBO(25, 111, 61 , .9),
-                child: ClipOval(
-                  child:SizedBox(
-                    width: 120,
-                    height: 120.0,
-                    child: Image.network("https://boutique.efl.fr/media/catalog/product/cache/2b53eb93d1bcfe52f1f1bc130090b7ab/v/i/vignette-formulaires_patrimoine.png", fit: BoxFit.fill),
-                   
-                    ),
-                ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top:80.0,left: 0),
-                child: IconButton(icon: Icon(Icons.camera_alt,size:25.0,color: Colors.white,), 
-                onPressed: (){
-                  getImageForm();
-                }
-                
-                ),
-              ),
+                 Container(
+  height: 160,
+  width: 150,
+  
+  decoration: BoxDecoration(
+   
+    boxShadow: [
+      BoxShadow(
+        color:Colors.white,
+        blurRadius :5.0,
+        
+      )
+    ],
+    
+    
+   image : DecorationImage(
+     
+    image: _image == null
+        ? AssetImage('images/logo.png')
+        : FileImage(_image),
+     
+     fit: BoxFit.contain,
+     
+   ) 
+  ),
+alignment: Alignment.bottomRight,
+//child:(_image!=null)?Image.file(_image,fit:BoxFit.fill),
+child: IconButton(
+  icon: Icon(
+    FontAwesomeIcons.camera,
+    size: 23.0,
+    color:Colors.black54,
+  ),
+   onPressed: (){
+getImageForm();
+   }),
+
+),
+             
               ]),
              
               Padding(
@@ -136,7 +154,8 @@ int valInt=0;
     ),
   ],
 ),
-            
+
+
             for(GlobalKey<NewCardState> itemKey in listKeysCard) 
              Column(
             children: <Widget>[
@@ -197,6 +216,7 @@ int valInt=0;
 
   }
    void showMyDialog(BuildContext context) {
+     
     showDialog<bool>(
       context: context,
       builder: (BuildContext context) {
@@ -225,6 +245,12 @@ int valInt=0;
               child:  RaisedButton(
                  
                           onPressed: () async{
+
+                             String filename=basename(_image.path);
+StorageReference firebaseStorageRef = FirebaseStorage.instance.ref().child(filename);
+StorageUploadTask uploadTasck = firebaseStorageRef.putFile(_image);
+StorageTaskSnapshot taskSnapshot = await uploadTasck.onComplete;
+var url = await taskSnapshot.ref.getDownloadURL();
                           //  uploadImage(context);
               // if (_formKey.currentState.validate()) {
                 bool i=false;
@@ -238,9 +264,15 @@ int valInt=0;
                    var keyForm = new GlobalKey<FormState>();
                    formTest.idForm= keyForm.toString();
                     for(GlobalKey<NewCardState> itemKey in listKeysCard){ 
+
+                     
+
                       itemKey.currentState.validateAndSave();
                      if(itemKey.currentState.validateform()==true){
+                       
+
                         if (_formKey.currentState.validate()) {
+                          
                       print(itemKey.currentState.cardModel.question);
                       itemKey.currentState.listContextInput.add(itemKey.currentState.inputTest);
                      setState(() {
@@ -257,6 +289,8 @@ int valInt=0;
                       if( itemKey.currentState.cardModel.inputType=='' || itemKey.currentState.cardModel.inputType==null){
                         itemKey.currentState.cardModel.inputType='Paragraphe';
                       }
+
+
                       formDAO.createCard(itemKey.currentState.cardModel); 
                       i=true;
                         }
@@ -265,8 +299,15 @@ int valInt=0;
                     showMyDialog(context);
                      }
                     }
-                    if(i==true){formDAO.createForm(formTest);
+                    if(i==true){
+                      formTest.url=url;
+                       setState(() {
+                 
+                     formTest.url=url;
+                       });
+                      formDAO.createForm(formTest);
                      for(GlobalKey<NewCardState> itemKey in listKeysCard){
+                      
                       itemKey.currentState.resetForm();
                     //   itemKey.currentState.listContextInput.clear();
                      }
@@ -274,12 +315,12 @@ int valInt=0;
                      setState(() {
                      listKeysToString.clear();
                      listKeysCard.clear();
+                  
                    //  keyForm.currentState.reset();
                      _formKey.currentState.reset();
                     titleController.clear();
                     descriptionController.clear();
-                      
-   
+                     
                      });
                      
                     

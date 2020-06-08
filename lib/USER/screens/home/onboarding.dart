@@ -58,11 +58,7 @@ title: "Bee One",
 image: Image.asset("images/Agridata.png"),
 body: "L’ERP leader pour le métier agricole, une richesse fonctionnelle exceptionnelle. Faites le choix de la maîtrise et la performance",
 decoration: pageDecoration,
-footer: RaisedButton(onPressed: ()
-{
 
-},
-),
 
 ),
 
@@ -91,7 +87,7 @@ pr.style(
 
 pr.update(
   progress: 50.0,
-  message: "Please wait...",
+  message: "S'il vous plaît, attendez ...",
   progressWidget: Container(
     padding: EdgeInsets.all(8.0), child: CircularProgressIndicator()),
   maxProgress: 100.0,
@@ -104,6 +100,7 @@ pr.update(
     return Scaffold(
       body: IntroductionScreen(
        globalBackgroundColor: Colors.green[100],
+       
        pages: getPages(),
 next: const Icon(Icons.arrow_forward),
      
@@ -139,8 +136,6 @@ next: const Icon(Icons.arrow_forward),
        },
       onSkip: () {
         
- 
-              
                 Navigator.of(context).push(CupertinoPageRoute(
                     builder: (BuildContext context) => authenticate()));
             

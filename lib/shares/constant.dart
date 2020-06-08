@@ -9,10 +9,7 @@ bool isCollapsed = true;
   Animation<Offset> _slideAnimation;
 final Color backgroundColor = Color(0xFF4A4A58);
 
-
- 
-
-final emailField =
+final emailField1 =
            InputDecoration(
              
               contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0,15.0),
@@ -23,7 +20,34 @@ final emailField =
               border:
                   OutlineInputBorder(),
              );
-    
+ 
+final passwordField1 = InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(10.0, 15.0, 20.0, 15.0),
+              hintText: "mot de passe",
+              enabledBorder: const OutlineInputBorder(
+      borderSide: const BorderSide(color: Color.fromRGBO(132, 199, 115, .9), width: 2.0),
+    ),
+              border:
+                  OutlineInputBorder(),
+                 );
+
+final emailField =
+           InputDecoration(
+             
+              contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0,15.0),
+              hintText: "Email",
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)));
+
+  
+
+final telField =
+           InputDecoration(
+             
+              contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0,15.0),
+              hintText: "+212....",
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)));   
 final Nom =
            InputDecoration(
              
@@ -36,12 +60,8 @@ final Nom =
          final passwordField = InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(10.0, 15.0, 20.0, 15.0),
               hintText: "mot de passe",
-              enabledBorder: const OutlineInputBorder(
-      borderSide: const BorderSide(color: Color.fromRGBO(132, 199, 115, .9), width: 2.0),
-    ),
               border:
-                  OutlineInputBorder(),
-                 );
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)));
 
 final ConfirmpasswordField = InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(10.0, 15.0, 20.0, 15.0),
@@ -103,7 +123,7 @@ final CIN =
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage("assets/google_logo.png"), height: 20.0),
+            Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(

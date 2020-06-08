@@ -73,7 +73,7 @@ return SafeArea(
   
            
            SizedBox(
-           height: 20.0,
+           height: 30.0,
            width: 190.0,
   
            child: Divider(
@@ -356,6 +356,8 @@ final globalKey = GlobalKey<ScaffoldState>();
           return list;
               }
           ),
+
+      
           
     ); 
         
