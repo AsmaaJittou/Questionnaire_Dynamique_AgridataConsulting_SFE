@@ -1,7 +1,6 @@
 
 import 'dart:io';
 
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ import 'package:programe/USER/screens/home/home.dart';
 import 'package:programe/services/auth.dart';
 import 'package:programe/services/sign_in.dart';
 import 'package:programe/shares/constant.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:programe/services/signInmethod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:path/path.dart';
@@ -124,19 +122,7 @@ title: Text(
 'Inscription'
 ),
 actions: <Widget>[
- FlatButton.icon(
-   icon: Icon(
-     Icons.person,
-     //color: Colors.orange,
-   
-   ),
-   onPressed: () {
-     widget.toggleView();
-   }, 
-   label: Text('Connexion')
 
-   ,
-   ) 
 ],
 
       ),

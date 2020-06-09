@@ -33,7 +33,7 @@ FirebaseUser loggedInUser;
   @override
 void initState() 
  {
-  getCurrentUser();
+ getCurrentUser();
   super.initState();
 }
 
@@ -174,7 +174,7 @@ final user = await _authe.signInWithEmailAndPassword(email: email.trim(), passwo
    {
       _checkEmailVerification();
             pr.show();
- Future.delayed(Duration(seconds: 3)).then((value) {
+ Future.delayed(Duration(seconds: 1)).then((value) {
               pr.hide().whenComplete(() {
                 Navigator.of(context).push(CupertinoPageRoute(
                     builder: (BuildContext context) => home()));

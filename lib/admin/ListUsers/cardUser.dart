@@ -59,7 +59,7 @@ bool isSwitch = false;
        
         trailing:
           Text(''),
-          title: Text(widget.snapshot.data[widget.index].data["nom"]??'',
+          title: Text(widget.snapshot.data[widget.index].data["nom"]+' '+widget.snapshot.data[widget.index].data["prenom"]??'',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
           ),
              ),

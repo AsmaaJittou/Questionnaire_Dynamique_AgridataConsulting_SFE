@@ -54,6 +54,7 @@ class CardResponseState extends State<CardResponse> {
    Widget build(BuildContext context){
           inputListDeroulante=widget.cardInside.listContextInput[0];
           cardOther =widget.cardInside;
+          cardOther.idCard=widget.cardInside.idCard;
      return new SingleChildScrollView(
         
       child: Card(
@@ -114,7 +115,8 @@ Widget testTypeInput(CardModel cardInside,Key key){
                       height: 200.0,child:  radioWidget(new GlobalKey<FormState>(),cardInside));
           
                 }else if(cardInside.inputType==inputsType[2]){
-               
+                cardInside.listContextInput.removeWhere((value) => value == null);  
+     cardInside.listContextInput.removeWhere((value) => value == '');  
                  choix=  SizedBox( width: 200.0,
                       height: 200.0, child: newCheck(new GlobalKey<FormState>(),cardInside),);
                 
@@ -124,6 +126,8 @@ Widget testTypeInput(CardModel cardInside,Key key){
                  return  choix; 
 }
    Widget listDeroulante(Key key,CardModel cardInside){
+     cardInside.listContextInput.removeWhere((value) => value == null);  
+     cardInside.listContextInput.removeWhere((value) => value == '');  
      return  new DropdownButton<String>(
        key: new GlobalKey<FormState>(),
                 hint: Text(inputListDeroulante),
@@ -148,7 +152,8 @@ Widget testTypeInput(CardModel cardInside,Key key){
    }
    
    Widget radioWidget(Key key,CardModel cardInside){
-   
+   cardInside.listContextInput.removeWhere((value) => value == null);
+   cardInside.listContextInput.removeWhere((value) => value == '');  
          return Column(
             children: <Widget>[
               for(String item in cardInside.listContextInput)

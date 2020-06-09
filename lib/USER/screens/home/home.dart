@@ -2,12 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:programe/USER/screens/home/Questions.dart';
 import 'package:programe/services/auth.dart';
 import 'package:programe/shares/NavDrawer.dart';
-import 'package:programe/shares/constant.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 
 
@@ -29,17 +28,19 @@ FirebaseUser loggedInUser;
  final _formKey = GlobalKey<FormState>();
 
  
-
+ProgressDialog pr;
 
 @override
 void initState() 
 {
-  getCurrentUser();
+  getCurrentUser(); 
   super.initState();
+  
 }
 
  void getCurrentUser() async{
   try{
+    
     final user = await _authe.currentUser() ;
     if(user!=null)
     {
@@ -53,11 +54,13 @@ void initState()
 }
 
 Widget _buildList(BuildContext context, DocumentSnapshot document) {
+
     return Container(
         padding: EdgeInsets.all(10.0),
         child: Center(
           child: Column(
             children: <Widget>[
+              
               Card(
                 color: Colors.green[50],
                 child: Container(
@@ -65,7 +68,7 @@ Widget _buildList(BuildContext context, DocumentSnapshot document) {
                    child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
- ClipRRect(
+                    ClipRRect(
                                       borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(10.0),
                                         topRight: Radius.circular(10.0),
@@ -158,6 +161,11 @@ String nomForm= document['title'];
  
   @override
   Widget build(BuildContext context) {
+   Widget returnNav(){
+    
+      return NavDrawer();
+    }
+    
     return   Scaffold(
       resizeToAvoidBottomPadding: false ,
       backgroundColor: Colors.green[255],
@@ -166,7 +174,7 @@ String nomForm= document['title'];
 
 backgroundColor: Colors.green,
 elevation: 0.0,
-title: Text(
+title: Text( 
 'Questionaire'
 ),
 centerTitle: true,
@@ -175,7 +183,7 @@ actions: <Widget>[
 ],
 
       ),
-      drawer:NavDrawer(),
+      drawer:returnNav(),
 
       body: StreamBuilder(
         stream: Firestore.instance.collection('Formulaire').snapshots(),

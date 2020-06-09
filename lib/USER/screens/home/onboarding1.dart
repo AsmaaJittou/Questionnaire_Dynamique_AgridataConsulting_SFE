@@ -32,7 +32,7 @@ class _Onboar1State extends State<Onboar1> {
              body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/Slide1.png"),
+            image: AssetImage("images/x3.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -50,6 +50,7 @@ class _Onboar1State extends State<Onboar1> {
     fontFamily: 'Montserrat',
   ),
   ),
+  
   onPressed: ()
   {
   Navigator.of(context).push(CupertinoPageRoute(

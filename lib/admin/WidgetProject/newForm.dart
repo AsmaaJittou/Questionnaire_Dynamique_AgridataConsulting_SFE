@@ -2,6 +2,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:programe/admin/WidgetProject/newCard.dart';
+import 'package:programe/admin/home/home.dart';
 import 'package:programe/admin/listForms/listForm.dart';
 import 'package:programe/services/formService.dart';
 import 'package:programe/models/form.dart';
@@ -47,6 +48,7 @@ int valInt=0;
      });
    }
   Widget build(BuildContext context){
+  
    Future getImageForm() async{
      var image = await ImagePicker.pickImage(source: ImageSource.gallery);
      setState(() {
@@ -322,6 +324,24 @@ var url = await taskSnapshot.ref.getDownloadURL();
                     descriptionController.clear();
                      
                      });
+                     showDialog(  
+    context: context,  
+    builder: (BuildContext context) {  
+      return  AlertDialog(  
+    title: Text("Votre formulaire a été créé avec succès",style: TextStyle(fontFamily: 'Montserrat',fontWeight: FontWeight.bold , color:Colors.green)),  
+    content: Text("Veuillez consulter liste des formulaires créés"),  
+    actions: [  
+     FlatButton(  
+    child: Text("OK"),  
+    onPressed: () {  
+      Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => Home())); 
+    },  
+  ),
+    ],  
+  );  
+    },  
+  );  
                      
                     
                     }

@@ -4,6 +4,9 @@ import 'package:programe/models/card.dart';
 import 'package:programe/admin/WidgetProject/newCheck.dart';
 import 'package:programe/admin/WidgetProject/newRadioButton.dart';
 import 'package:programe/USER/screens/home/cardResponse.dart';
+import 'package:flutter/cupertino.dart';
+
+import 'home.dart';
 
 
 class FormUser extends StatefulWidget {
@@ -142,7 +145,24 @@ List<GlobalKey<CardResponseState>> listQuestionKeys=[];
                      });
       
                     }
-               
+               showDialog(  
+    context: context,  
+    builder: (BuildContext context) {  
+      return  AlertDialog(  
+    title: Text("Votre formulaire a été envoyé avec succès",style: TextStyle(fontFamily: 'Montserrat',fontWeight: FontWeight.bold , color:Colors.green)),  
+    content: Text("Veuillez remplir d\'autre formulaire"),  
+    actions: [  
+     FlatButton(  
+    child: Text("OK"),  
+    onPressed: () {  
+      Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => home())); 
+    },  
+  ),
+    ],  
+  );  
+    },  
+  );  
                      
                   }),)
       ],

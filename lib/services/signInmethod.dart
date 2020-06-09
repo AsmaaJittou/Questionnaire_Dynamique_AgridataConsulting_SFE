@@ -18,7 +18,7 @@ Future<String> signInWithGoogle() async {
 
   final AuthResult authResult = await _auth.signInWithCredential(credential);
   final FirebaseUser user = authResult.user;
-
+ 
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
 

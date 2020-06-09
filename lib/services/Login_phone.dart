@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:programe/USER/screens/home/home.dart';
+import 'package:programe/services/sign_in.dart';
 import 'package:programe/shares/constant.dart';
 import 'package:programe/admin/home/home.dart';
 
@@ -97,7 +98,7 @@ Future<void>  smsCodeDialogue(BuildContext context)
   builder: (BuildContext context)
   {
     return new AlertDialog(
-      title:Text('Enter sms Code'),
+      title:Text('Entez le code recu'),
       content: TextField(
         onChanged : (value)
         {
@@ -105,8 +106,18 @@ Future<void>  smsCodeDialogue(BuildContext context)
         },
       ),
        actions: <Widget>[
+          FlatButton(
+            child: Text("Annuler", style: TextStyle(color: Colors.orangeAccent)),
+            onPressed: () {
+
+                     Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => Login_phone()));
+               
+          
+            }
+      ),
       FlatButton(
-            child: Text("Connecter"),
+            child: Text("Connecter", style: TextStyle(color: Colors.orangeAccent)),
             onPressed: () {
 FirebaseAuth.instance.currentUser().then((user){
                   if(user !=null){
@@ -127,7 +138,7 @@ FirebaseAuth.instance.currentUser().then((user){
             
     
            FlatButton(
-            child: Text("Renvoyer"),
+            child: Text("Renvoyer", style: TextStyle(color: Colors.orangeAccent)),
             onPressed: () {
               //Put your code here which you want to execute on No button click.
              sendCodeToPhoneNumber();
@@ -165,18 +176,18 @@ body: Container(
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.green, Colors.orange])),
+              colors: [Colors.white, Colors.orange[200]])),
   padding: EdgeInsets.symmetric(vertical:10.0,horizontal:50.0),
   child : Form( 
     key: _formKey,
     child: Column(
 children: <Widget>[
-       SizedBox(height: 200.0),
+       SizedBox(height: 140.0),
 
   SizedBox(
-          height: 120.0,
+          height: 190.0,
           child: Image.asset(
-            "images/logo.png",
+            "images/beOne.png",
             fit: BoxFit.contain,
           ),
         ),
@@ -186,9 +197,9 @@ TextFormField(
  decoration: InputDecoration(
              
               contentPadding: EdgeInsets.fromLTRB(10.0, 10.0, 20.0,15.0),
-              hintText: "+212",
+              hintText: "2120600000000",
               border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(32.0),
+                  OutlineInputBorder(borderRadius: BorderRadius.vertical(),
                   borderSide:  BorderSide(color: Colors.orange, width: 2.0),
                   ),
                   focusedBorder: OutlineInputBorder(borderSide:  BorderSide(color: Colors.orange, width: 2.0),
@@ -207,16 +218,51 @@ setState(() => phoneNo = val);
 
 SizedBox(height:30.0),
 
- new FloatingActionButton.extended(
+ new RaisedButton(
         onPressed: () {
 smsCodeDialogue(context);
 sendCodeToPhoneNumber();
         },
-        tooltip: 'get code',
-        icon: Icon(Icons.send),
-        label: Text('Envoyer Code '),
-        backgroundColor: Colors.green[200],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+         padding: const EdgeInsets.all(0.0),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: <Color>[
+                                  Color.fromRGBO(50, 111, 30 , .9),
+                                  Colors.greenAccent
+                                ],
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(10.0),
+                            child: const Text(
+                                'Recevoir le Code',
+                                style: TextStyle(fontSize: 15,color: Colors.white)
+                            ),
+                          ),
+      ), // Thi
+      new RaisedButton(
+        onPressed: () {
+            Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => SignIn()));
+               
+        },
+         padding: const EdgeInsets.all(0.0),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: <Color>[
+                                  Color.fromRGBO(50, 111, 30 , .9),
+                                  Colors.orangeAccent
+                                ],
+                              ),
+                            ),
+                            padding: const EdgeInsets.all(10.0),
+                            child: const Text(
+                                'Retour à la page précédente',
+                                style: TextStyle(fontSize: 15,color: Colors.white)
+                            ),
+                          ),
+      ), //s trailing comma makes auto-formatting nicer for build methods.
 
 ],
     ), 

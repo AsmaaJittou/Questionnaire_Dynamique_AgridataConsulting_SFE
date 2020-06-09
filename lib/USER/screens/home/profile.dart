@@ -185,14 +185,12 @@ return SafeArea(
                   child:  ListTile(
                      leading: Icon(Icons.mail,
                       color : Colors.orange,
-  
                     ),
                     title:
                     Text(
                 document.data['email'],
                       style: TextStyle(
                         color: Colors.black,
-                        fontFamily: 'forte',
                         fontSize: 15.0,
                       ),
   
@@ -315,18 +313,7 @@ final globalKey = GlobalKey<ScaffoldState>();
   ),
   centerTitle: true,
   actions: <Widget>[
-   FlatButton.icon(
-      label: Text(''),
-     icon: Icon(
-       Icons.person,
-       //color: Colors.orange,
-     
-     ),
-     onPressed: () {
-      
-     }, 
-    
-   ),
+   
 
   ],
  

@@ -2,15 +2,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:programe/models/user.dart';
-import 'package:programe/USER/screens/forgotPassword.dart';
-import 'package:programe/USER/screens/home/home.dart';
 import 'package:programe/services/auth.dart';
-import 'package:programe/services/signInmethod.dart';
 import 'package:programe/shares/constant.dart';
-import 'package:programe/shares/loading.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 class ForgotPassword extends StatefulWidget {
@@ -77,23 +70,14 @@ pr.style(
   );
     return  Scaffold(
       resizeToAvoidBottomPadding: false ,
-      backgroundColor: Colors.green[255],
+      backgroundColor: Colors.white,
 
       appBar: AppBar(
 
-backgroundColor: Colors.green,
+backgroundColor: Colors.orangeAccent,
 elevation: 0.0,
 
 
-actions: <Widget>[
- FlatButton.icon(
-   icon: Icon(Icons.person),
-   onPressed: () {
-      widget.toggleView();
-   }, 
-   label: Text('Inscrire'),
-   ) 
-],
 
 
 
@@ -108,7 +92,7 @@ body: Container(
     child: Column(
 children: <Widget>[
   SizedBox(
-                      height: 255.0,
+                      height: 150.0,
                       child: Image.asset(
                         "images/lock.png",
                         fit: BoxFit.contain,
@@ -128,10 +112,10 @@ setState(() => email = val.trim());
 SizedBox(height:50.0),
 Material(
  borderRadius: BorderRadius.circular(32.0),
-  color:  Colors.orange,
+  color:  Colors.orangeAccent,
   child : MaterialButton(
 child: Text(
-    'Reset',
+    'Rénitialiser',
     
      style: TextStyle(color : Colors.white , fontFamily: 'Montserrat' ,fontWeight: FontWeight.bold) ,
   ),

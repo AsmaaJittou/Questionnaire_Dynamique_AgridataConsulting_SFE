@@ -14,7 +14,7 @@ class _ListUsersState extends State<ListUsers> {
   
       Future getUsers() async{
         var firestore = Firestore.instance;
-       QuerySnapshot query = await  firestore.collection('user').getDocuments();
+       QuerySnapshot query = await  firestore.collection('user').where('role', isEqualTo: 'user').getDocuments();
       
              return query.documents;
   

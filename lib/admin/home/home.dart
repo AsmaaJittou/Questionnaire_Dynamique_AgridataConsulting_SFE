@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:programe/admin/WidgetProject/newForm.dart';
-import 'package:programe/services/auth.dart';
-import 'package:ff_navigation_bar/ff_navigation_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:programe/admin/listForms/listForm.dart';
 import 'package:programe/admin/ListUsers/listUser.dart';
+import 'package:programe/services/sign_in.dart';
 class Home extends StatefulWidget  {
   
      @override
@@ -28,13 +28,18 @@ class _HomeState extends State<Home> {
     home: Scaffold(
       appBar: AppBar(
       elevation: 0.1,
-      backgroundColor: Color.fromRGBO(253, 235, 208 , .9),
+      backgroundColor: Color.fromRGBO(43, 53, 39 , .9),
       title: Text('Espace Administrateur',style: TextStyle(color: Color.fromRGBO(92, 150, 113 , .9),fontFamily: 'Oswald')),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.list,color: Color.fromRGBO(25, 111, 61 , .9),),
-          onPressed: () {},
-        )
+        FlatButton(
+  child: Icon(Icons.exit_to_app,color: Colors.white24,),
+  
+  onPressed: ()
+  {
+  Navigator.of(context).push(CupertinoPageRoute(
+                    builder: (BuildContext context) => SignIn()));
+  },
+  )
       ],
     ),
 
@@ -107,7 +112,7 @@ class _HomeState extends State<Home> {
           textTheme: Theme
               .of(context)
               .textTheme
-              .copyWith(caption: new TextStyle(color: Colors.white24))), // sets the inactive color of the `BottomNavigationBar`
+              .copyWith(caption: new TextStyle(color: Color.fromRGBO(43, 53, 39, .9)))), // sets the inactive color of the `BottomNavigationBar`
    child : new Column(
                mainAxisSize: MainAxisSize.min,
                crossAxisAlignment: CrossAxisAlignment.stretch,
