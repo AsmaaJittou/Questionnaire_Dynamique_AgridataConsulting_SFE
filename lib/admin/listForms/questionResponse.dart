@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:programe/models/card.dart';
 import 'package:programe/admin/listForms/cardResponseAdmin.dart';
-
 import 'package:programe/admin/listForms/newCardLittle.dart';
 import 'package:programe/admin/listForms/cardQuestion.dart';
 class EditFormResponse extends StatefulWidget {
@@ -20,7 +19,6 @@ const List<String> tabNames = const<String>[
 
 class _EditFormResponseState extends State<EditFormResponse> {
    var firestore ;
-
 
      int _screen = 0;
     
@@ -57,11 +55,23 @@ class _EditFormResponseState extends State<EditFormResponse> {
   }
   String addItem ='';
     var val=[];   
+    List<String> listIdCardsDeleted=[];
       deleteItemFromListDB(String ok,CardModel model){
     val.add(ok);
     Firestore.instance.collection("card").document(model.idCard).updateData({
     "listContextInput":FieldValue.arrayRemove(val) }).then((_) =>  print("success!"));
     print(ok);
+      }
+      int i=0;
+     
+     void deleteResponsesFromBD(String id) async{
+         await Firestore.instance
+        .collection('card')
+        .document(id)
+        .updateData({
+           'listResponses': ['']
+          
+          });
       }
   @override
    
@@ -104,6 +114,7 @@ class _EditFormResponseState extends State<EditFormResponse> {
                           scrollDirection: Axis.vertical,
                           itemCount: snapshot.data.length,
                           itemBuilder: (_, index) {
+                            
                    CardModel cardInside=new CardModel(idCard: snapshot.data[index].documentID,idForm:  widget.idForm,question: snapshot.data[index].data['question'],inputType: snapshot.data[index].data['inputType'] );
                           
                               return  CardQuestion(key:Key(cardInside.idCard),cardInside: cardInside,snapshot: snapshot,index: index);
@@ -172,8 +183,9 @@ class _EditFormResponseState extends State<EditFormResponse> {
                           scrollDirection: Axis.vertical,
                           itemCount: snapshot.data.length,
                           itemBuilder: (_, index) {
+                            listIdCardsDeleted.add(snapshot.data[index].documentID);
                    CardModel cardInside=new CardModel(idCard: snapshot.data[index].documentID,idForm:  widget.idForm,question: snapshot.data[index].data['question'],listResponses: List<String>.from(snapshot.data[index].data['listResponses']),inputType: snapshot.data[index].data['inputType'] );
-                          
+                             
                               return  CardAdminResponse(key:Key(cardInside.idCard),cardInside: cardInside,snapshot: snapshot,index: index);
     
            },
@@ -184,8 +196,54 @@ class _EditFormResponseState extends State<EditFormResponse> {
                           ),
                          ),
                    ),),
-                      
-                        
+                    
+                         Expanded(
+                    flex: 0,
+                      child: SizedBox(
+                     width: 300,
+                     
+                     child:  RaisedButton.icon( 
+                            shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  label: Text('Supprimer toutes les réponses', 
+                          style: TextStyle(color: Colors.white),),
+                  icon: Icon(Icons.delete, color:Colors.white,), 
+                  textColor: Colors.white,
+                  splashColor: Colors.red,
+                  color: Color.fromRGBO(25, 111, 61 , .9),
+         onPressed: (){
+           showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("Suppression"),
+            content: new Text("Souhaitez-vous vraiment supprimer toutes les réponses au formulaire ? Cette action est irréversible.",),
+            actions: <Widget>[
+              // usually buttons at the bottom of the dialog
+              new FlatButton(
+                child: new Text("Non"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+               new FlatButton(
+                child: new Text("Oui"),
+                onPressed: () async {
+                 for(String item in listIdCardsDeleted){
+                   deleteResponsesFromBD(item);
+                   print('greeet');
+                 }
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+         }
+      )
+                      ),),
                      ],
                    ),
  

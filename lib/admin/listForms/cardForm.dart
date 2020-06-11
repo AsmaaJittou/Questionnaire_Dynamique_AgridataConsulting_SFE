@@ -45,7 +45,7 @@ DatabaseService serviceData = new DatabaseService();
                   child: Container(
                  child: ListTile(
                 key: new GlobalKey<FormState>(),
-                 title: Text(widget.snapshot.data[widget.index].data["title"]??'test',style: TextStyle(fontSize: 15),),
+                 title: Text(widget.snapshot.data[widget.index].data["title"]??'test',style: TextStyle(fontSize: 12),),
             ),
                   )
                   ),

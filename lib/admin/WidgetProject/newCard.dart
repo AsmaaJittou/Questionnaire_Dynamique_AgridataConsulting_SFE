@@ -243,7 +243,7 @@ if(typeInput2==inputsType[3]){
                  ),
               ),
               Expanded(
-                flex: 5,
+                flex: 7,
                  child: Container(
                   child: SizedBox(
                     width: 100,
@@ -252,7 +252,7 @@ if(typeInput2==inputsType[3]){
             
                  ),),
                  Expanded(
-                   flex: 1,
+                   flex: 0,
                    child: SizedBox(
                      width: 50,
                      height: 20,
@@ -321,7 +321,7 @@ if(typeInput2==inputsType[3]){
              Row(
             children: <Widget>[
              Expanded(
-                   flex: 0,
+                   flex: 7,
                     child: SizedBox(
                 width: 200,
                 child:  radioWidget(key),
@@ -329,7 +329,7 @@ if(typeInput2==inputsType[3]){
                   ),
                  
               Expanded(
-                   flex: 1,
+                   flex: 0,
                    child: SizedBox(
                      width: 50,
                      height: 20,
@@ -377,13 +377,13 @@ if(typeInput2==inputsType[3]){
                 child: Icon(Icons.indeterminate_check_box, color: Color.fromRGBO(42, 45, 46, .9),)),
 
                    Expanded(
-                     flex: 5,
+                     flex: 7,
                      child:  SizedBox(
                     width: 100,
                     child: inptText(key),
                     ),),  
                    Expanded(
-                   flex: 1,
+                   flex: 0,
                    child: SizedBox(
                      width: 50,
                      height: 20,

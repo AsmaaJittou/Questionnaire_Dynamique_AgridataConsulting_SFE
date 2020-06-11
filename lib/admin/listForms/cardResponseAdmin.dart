@@ -2,7 +2,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:programe/admin/listForms/addNewOptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:programe/models/card.dart';
 
@@ -29,7 +28,7 @@ class CardAdminResponseState extends State<CardAdminResponse> {
     
   @override
   Widget build(BuildContext context) {
-
+widget.cardInside.listResponses.removeWhere((value) => value == '');  
     return  SizedBox(
       width: 200,
       height: 200,
@@ -46,17 +45,17 @@ class CardAdminResponseState extends State<CardAdminResponse> {
               children: <Widget>[
              Row( children: <Widget>[
                 Expanded(
-                  flex: 2,
+                  flex: 5,
                   child: SizedBox(
                       width: 150,
-                            height: 22,
-                          child: Text(widget.cardInside.question,style: TextStyle(color: Color.fromRGBO(25, 111, 61 , .9),fontWeight: FontWeight.bold),
+                            height: 60,
+                          child: Text(widget.cardInside.question,style: TextStyle(fontSize: 13,color: Color.fromRGBO(25, 111, 61 , .9),fontWeight: FontWeight.bold),
                           ),),
                 ),
                Expanded(
                   flex: 1,
                   child: SizedBox(
-                      width: 150,
+                      width: 100,
                             height: 22,
                           child: Text(widget.cardInside.listResponses.length.toString()+'  réponses',style: TextStyle(color: Colors.green,backgroundColor:Color.fromRGBO(253, 235, 208 , .9),fontSize: 10),
                           ),),
